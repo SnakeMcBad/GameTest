@@ -1,0 +1,151 @@
+[gd_scene load_steps=11 format=3 uid="uid://main001"]
+
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/world/TestEnemy.tscn" id="2_enemy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(1280, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_l"]
+size = Vector2(32, 720)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_r"]
+size = Vector2(32, 720)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat1"]
+size = Vector2(200, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat2"]
+size = Vector2(160, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat3"]
+size = Vector2(120, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_walljump_l"]
+size = Vector2(20, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_walljump_r"]
+size = Vector2(20, 200)
+
+[node name="Main" type="Node2D"]
+
+[node name="WorldGeometry" type="Node2D" parent="."]
+
+[node name="Floor" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+position = Vector2(640, 700)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/Floor"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="DebugRect" type="ColorRect" parent="WorldGeometry/Floor"]
+offset_left = -640.0
+offset_top = -16.0
+offset_right = 640.0
+offset_bottom = 16.0
+color = Color(0.25, 0.22, 0.28, 1.0)
+
+[node name="WallLeft" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+position = Vector2(16, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/WallLeft"]
+shape = SubResource("RectangleShape2D_wall_l")
+
+[node name="WallRight" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+position = Vector2(1264, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/WallRight"]
+shape = SubResource("RectangleShape2D_wall_r")
+
+[node name="Platform1" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+position = Vector2(300, 560)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/Platform1"]
+shape = SubResource("RectangleShape2D_plat1")
+
+[node name="DebugRect" type="ColorRect" parent="WorldGeometry/Platform1"]
+offset_left = -100.0
+offset_top = -10.0
+offset_right = 100.0
+offset_bottom = 10.0
+color = Color(0.3, 0.27, 0.35, 1.0)
+
+[node name="Platform2" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+position = Vector2(600, 460)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/Platform2"]
+shape = SubResource("RectangleShape2D_plat2")
+
+[node name="DebugRect" type="ColorRect" parent="WorldGeometry/Platform2"]
+offset_left = -80.0
+offset_top = -10.0
+offset_right = 80.0
+offset_bottom = 10.0
+color = Color(0.3, 0.27, 0.35, 1.0)
+
+[node name="Platform3" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+position = Vector2(900, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/Platform3"]
+shape = SubResource("RectangleShape2D_plat3")
+
+[node name="DebugRect" type="ColorRect" parent="WorldGeometry/Platform3"]
+offset_left = -60.0
+offset_top = -10.0
+offset_right = 60.0
+offset_bottom = 10.0
+color = Color(0.3, 0.27, 0.35, 1.0)
+
+[node name="WallJumpColumnLeft" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+position = Vector2(150, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/WallJumpColumnLeft"]
+shape = SubResource("RectangleShape2D_walljump_l")
+
+[node name="DebugRect" type="ColorRect" parent="WorldGeometry/WallJumpColumnLeft"]
+offset_left = -10.0
+offset_top = -100.0
+offset_right = 10.0
+offset_bottom = 100.0
+color = Color(0.3, 0.27, 0.35, 1.0)
+
+[node name="WallJumpColumnRight" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+position = Vector2(450, 480)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/WallJumpColumnRight"]
+shape = SubResource("RectangleShape2D_walljump_r")
+
+[node name="DebugRect" type="ColorRect" parent="WorldGeometry/WallJumpColumnRight"]
+offset_left = -10.0
+offset_top = -100.0
+offset_right = 10.0
+offset_bottom = 100.0
+color = Color(0.3, 0.27, 0.35, 1.0)
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(200, 620)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_horizontal_offset = 0.0
+drag_vertical_offset = 0.1
+limit_left = 32
+limit_top = 0
+limit_right = 1248
+limit_bottom = 720
+
+[node name="TestEnemy" parent="." instance=ExtResource("2_enemy")]
+position = Vector2(750, 660)
+
+[node name="TestEnemy2" parent="." instance=ExtResource("2_enemy")]
+position = Vector2(920, 330)

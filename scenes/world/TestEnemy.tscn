@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://enemy001"]
+
+[ext_resource type="Script" path="res://scripts/world/TestEnemy.gd" id="1_enemy"]
+[ext_resource type="Script" path="res://scripts/core/Hitbox.gd" id="2_hitbox"]
+[ext_resource type="Script" path="res://scripts/core/Hurtbox.gd" id="3_hurtbox"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_body"]
+radius = 10.0
+height = 30.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(24, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
+size = Vector2(18, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_detect"]
+size = Vector2(240, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_edge"]
+size = Vector2(4, 4)
+
+[node name="TestEnemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_enemy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="DebugShape" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-10, -16, 10, -16, 10, 12, 0, 16, -10, 12)
+color = Color(0.9, 0.3, 0.2, 1.0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_body")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 16
+monitoring = false
+script = ExtResource("2_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(14, 0)
+shape = SubResource("RectangleShape2D_hitbox")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("3_hurtbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_hurtbox")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("RectangleShape2D_detect")
+
+[node name="WallRay" type="RayCast2D" parent="."]
+target_position = Vector2(16, 0)
+collision_mask = 1
+
+[node name="EdgeRay" type="RayCast2D" parent="."]
+position = Vector2(14, 4)
+target_position = Vector2(0, 20)
+collision_mask = 1
