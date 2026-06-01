@@ -115,7 +115,7 @@ func _do_chase(_delta: float) -> void:
 		_start_attack()
 		return
 
-	var dir := sign(target.global_position.x - global_position.x)
+	var dir: float = sign(target.global_position.x - global_position.x)
 	if dir != 0:
 		facing = int(dir)
 		sprite.flip_h = facing == -1
